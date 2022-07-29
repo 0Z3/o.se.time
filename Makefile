@@ -6,6 +6,8 @@
 # EXTRA_CFLAGS (default: none)
 ############################################################
 
+TYPES=-DOSE_CONF_PROVIDE_TYPE_TIMETAG
+
 ifndef CCOMPILER
 CC=clang
 else
@@ -21,13 +23,13 @@ endif
 BASENAME=time
 
 LIBOSE_DIR=../libose
-# OSE_CFILES=\
-# 	ose.c\
-# 	ose_util.c\
-# 	ose_stackops.c\
-# 	ose_match.c\
-# 	ose_context.c\
-# 	ose_print.c\
+OSE_CFILES=\
+	ose.c\
+	ose_util.c\
+	ose_stackops.c\
+	ose_match.c\
+	ose_context.c\
+	ose_print.c\
 
 MOD_FILES=\
 	ose_$(BASENAME).c
@@ -36,8 +38,8 @@ INCLUDES=-I. -I$(LIBOSE_DIR)
 
 DEFINES=-DHAVE_OSE_ENDIAN_H
 
-CFLAGS_DEBUG=-Wall -DOSE_CONF_DEBUG -O0 -g$(DEBUG_SYMBOLS) $(EXTRA_CFLAGS) -undefined dynamic_lookup
-CFLAGS_RELEASE=-Wall -O3 $(EXTRA_CFLAGS) -undefined dynamic_lookup
+CFLAGS_DEBUG=-Wall -DOSE_CONF_DEBUG -O0 -g$(DEBUG_SYMBOLS) $(EXTRA_CFLAGS) $(TYPES)
+CFLAGS_RELEASE=-Wall -O3 $(EXTRA_CFLAGS) $(TYPES)
 
 release: CFLAGS+=$(CFLAGS_RELEASE)
 release: $(LIBOSE_DIR)/sys/ose_endian.h ose_$(BASENAME).so

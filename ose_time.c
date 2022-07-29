@@ -98,9 +98,9 @@ static void ose_time_now(ose_bundle osevm)
 
 	ose_time_gettimeofday(&tv, &tz);
     
-	n.sec = ose_htonl((uint32_t)2208988800UL + (uint32_t)tv.tv_sec);
-	n.fsec = ose_htonl((uint32_t)(tv.tv_usec * 4295));
-    ose_pushBlob(vm_s, OSE_TIMETAG_LEN, (char *)&n);
+	n.sec = (uint32_t)2208988800UL + (uint32_t)tv.tv_sec;
+	n.fsec = (uint32_t)(tv.tv_usec * 4295);
+    ose_pushTimetag(vm_s, n.sec, n.fsec);
 }
 
 void ose_main(ose_bundle osevm)
